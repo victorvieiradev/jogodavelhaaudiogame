@@ -46,7 +46,7 @@ O **Jogo da Velha Acessível por Áudio** é um jogo web inclusivo que substitui
 ```text
 /
 ├── index.html           # Interface principal + Regiões ARIA Live
-├── header.md            # Cabeçalho e documentação do projeto
+├── README.md            # Cabeçalho e documentação do projeto
 ├── css/
 │   └── styles.css       # Estilização de alto contraste e foco visível
 ├── js/
