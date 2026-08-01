@@ -1,0 +1,298 @@
+/* ==========================================================================
+   Estilos CSS — Jogo da Velha Acessível por Áudio (Audio Game)
+   Diretrizes: WCAG 2.1 AA, Alto Contraste, Foco Visível Expandido
+   ========================================================================== */
+
+:root {
+    --bg-main: #0b0d14;
+    --bg-card: #141724;
+    --bg-cell: #1c2033;
+    --bg-cell-hover: #262c47;
+    
+    --text-primary: #ffffff;
+    --text-muted: #94a3b8;
+    
+    --accent-player: #38bdf8; /* Azul vivo para X */
+    --accent-ai: #f43f5e;     /* Vermelho vivo para O */
+    --focus-yellow: #ffe600;  /* Amarelo vibrante para alto contraste de foco */
+    --border-color: #334155;
+    
+    --font-heading: 'Space Grotesk', system-ui, sans-serif;
+    --font-body: 'Outfit', system-ui, sans-serif;
+    
+    --radius-lg: 16px;
+    --radius-md: 10px;
+    --shadow-glow: 0 0 25px rgba(255, 230, 0, 0.35);
+}
+
+/* Reset Básico e Box Sizing */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    line-height: 1.5;
+}
+
+/* Região SR-Only (Invisível visualmente, lida pelo leitor de tela) */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Container Principal */
+.game-container {
+    background-color: var(--bg-card);
+    border: 3px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 580px;
+    padding: 32px 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Cabeçalho */
+.game-header {
+    text-align: center;
+}
+
+.logo-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #38bdf8, #818cf8);
+    color: #000;
+    font-weight: 800;
+    font-size: 0.85rem;
+    padding: 4px 14px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.game-header h1 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.game-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+/* Guia de Controles Teclado */
+.controls-guide {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 16px;
+}
+
+.controls-guide h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--focus-yellow);
+}
+
+.key-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+
+@media (min-width: 480px) {
+    .key-list {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+kbd {
+    background-color: #334155;
+    color: #fff;
+    border-radius: 4px;
+    border: 1px solid #64748b;
+    padding: 2px 6px;
+    font-family: monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+/* Painel de Status */
+.status-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.status-box {
+    background-color: #0f172a;
+    border: 2px solid #3b82f6;
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-align: center;
+    color: #e2e8f0;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.turn-indicator {
+    text-align: right;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.turn-indicator strong {
+    color: var(--accent-player);
+}
+
+/* Grid do Tabuleiro 3x3 */
+.board-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.board-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 12px;
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 1 / 1;
+}
+
+/* Células / Casas do Tabuleiro */
+.cell {
+    background-color: var(--bg-cell);
+    border: 3px solid var(--border-color);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    position: relative;
+    transition: all 0.2s ease;
+    user-select: none;
+    outline: none;
+}
+
+.cell:hover {
+    background-color: var(--bg-cell-hover);
+    border-color: #64748b;
+}
+
+/* ESTADO DE FOCO ALTO CONTRASTE (Critério Acessibilidade WCAG) */
+.cell:focus, .cell:focus-visible, .cell.focused {
+    background-color: #2a3254;
+    border-color: var(--focus-yellow) !important;
+    border-width: 4px !important;
+    box-shadow: var(--shadow-glow);
+    transform: scale(1.04);
+    z-index: 10;
+}
+
+.cell-coords {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    align-self: flex-start;
+}
+
+.cell:focus .cell-coords, .cell.focused .cell-coords {
+    color: var(--focus-yellow);
+}
+
+.cell-mark {
+    font-family: var(--font-heading);
+    font-size: 2.8rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 6px;
+}
+
+.cell[data-mark="X"] .cell-mark {
+    color: var(--accent-player);
+}
+
+.cell[data-mark="O"] .cell-mark {
+    color: var(--accent-ai);
+}
+
+/* Botões de Ação */
+.game-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+@media (min-width: 480px) {
+    .game-actions {
+        flex-direction: row;
+    }
+}
+
+.btn-primary, .btn-secondary {
+    flex: 1;
+    padding: 12px 18px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: var(--radius-md);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background-color: #3b82f6;
+    color: #ffffff;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: #2563eb;
+    outline: 3px solid var(--focus-yellow);
+}
+
+.btn-secondary {
+    background-color: #334155;
+    color: #e2e8f0;
+}
+
+.btn-secondary:hover, .btn-secondary:focus {
+    background-color: #475569;
+    outline: 3px solid var(--focus-yellow);
+}
