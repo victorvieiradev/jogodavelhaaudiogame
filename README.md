@@ -67,5 +67,4 @@ O **Jogo da Velha Acessível por Áudio** é um jogo web inclusivo que substitui
 ## 👤 Autor
 
 * **Desenvolvedor:** Victor Vieira ([@victorvieiradev](https://github.com/victorvieiradev))
-* **E-mail:** `contatovictorvieira@outlook.com`
 * **Repositório:** [github.com/victorvieiradev/jogodavelhaaudiogame](https://github.com/victorvieiradev/jogodavelhaaudiogame)
