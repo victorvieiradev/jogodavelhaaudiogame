@@ -199,6 +199,37 @@ class AudioManager {
     }
 
     /**
+     * Efeito sonoro para troca de nível de dificuldade
+     * @param {string} level 'EASY' | 'MEDIUM' | 'HARD'
+     */
+    playDifficultyChangeSound(level) {
+        this.initAudio();
+        if (!this.audioCtx) return;
+
+        let freqs = [350, 450]; // Fácil
+        if (level === 'MEDIUM') freqs = [350, 550]; // Médio
+        if (level === 'HARD') freqs = [350, 700]; // Impossível
+
+        freqs.forEach((freq, index) => {
+            const osc = this.audioCtx.createOscillator();
+            const gain = this.audioCtx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, this.audioCtx.currentTime);
+
+            const startTime = this.audioCtx.currentTime + index * 0.08;
+            gain.gain.setValueAtTime(0.18, startTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.15);
+
+            osc.connect(gain);
+            gain.connect(this.audioCtx.destination);
+
+            osc.start(startTime);
+            osc.stop(startTime + 0.15);
+        });
+    }
+
+    /**
      * Som de Empate (Deu Velha)
      */
     playDrawSound() {

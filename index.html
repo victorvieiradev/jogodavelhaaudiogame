@@ -26,6 +26,7 @@
             <ul class="key-list">
                 <li><kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd> : Navegar pelo tabuleiro 3x3</li>
                 <li><kbd>Espaço</kbd> / <kbd>Enter</kbd> : Marcar jogada na casa focada</li>
+                <li><kbd>D</kbd> : Alternar nível de dificuldade da IA</li>
                 <li><kbd>R</kbd> : Reiniciar a partida a qualquer momento</li>
                 <li><kbd>S</kbd> : Ouvir status do tabuleiro completo</li>
             </ul>
@@ -88,6 +89,9 @@
 
         <!-- Ações do Jogo -->
         <footer class="game-actions">
+            <button id="btn-difficulty" class="btn-secondary" aria-label="Nível de Dificuldade da IA: Médio. Pressione D ou clique para alterar.">
+                🎯 Dificuldade: <strong id="difficulty-label">Médio</strong> (Tecla D)
+            </button>
             <button id="btn-restart" class="btn-primary">
                 🔄 Reiniciar Partida (Tecla R)
             </button>

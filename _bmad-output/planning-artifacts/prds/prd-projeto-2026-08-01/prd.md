@@ -141,6 +141,22 @@ A aplicação possui um sintetizador interno usando `window.speechSynthesis` e `
 
 ---
 
+### 4.6 Seleção de Nível de Dificuldade da IA
+**Descrição:** O jogador pode alternar dinamicamente entre 3 níveis de dificuldade para a IA utilizando a tecla `D` no teclado ou o botão acessível na interface. A cada alteração, o jogo dispara um efeito sonoro característico e anuncia a nova dificuldade por voz.
+
+**Functional Requirements:**
+
+#### FR-10: Níveis de Dificuldade da IA e Controle por Teclado
+O sistema oferece 3 níveis de inteligência para o computador (Fácil, Médio e Impossível) e permite alterá-los a qualquer momento.
+**Consequências (testáveis):**
+- **Fácil:** IA joga com comportamento predominantemente aleatório (70% aleatório, 30% estratégico).
+- **Médio:** IA joga com heurística padrão (bloqueia vitórias do jogador, busca centro e cantos).
+- **Impossível:** IA utiliza o algoritmo **Minimax** otimizado para jogar de maneira impecável (imbatível).
+- Pressionar a tecla `D` alterna ciclicamente a dificuldade: `Fácil` ➔ `Médio` ➔ `Impossível` ➔ `Fácil`.
+- A mudança dispara o anúncio de voz (*"Dificuldade alterada para: [Nível]"*) e atualiza a região ARIA Live.
+
+---
+
 ## 5. Non-Goals (Explicit)
 - **v1 NÃO terá modo Multiplayer:** Não haverá partidas entre 2 jogadores humanos (nem local no mesmo teclado, nem online).
 - **v1 NÃO terá ranking/leaderboard nem login:** Não haverá criação de conta de usuário ou salvamento de histórico de pontuação em nuvem.
@@ -154,13 +170,13 @@ A aplicação possui um sintetizador interno usando `window.speechSynthesis` e `
 - Tabuleiro 3x3 acessível.
 - Navegação completa por setas do teclado.
 - Feedback sonoro (efeitos sonoros sintetizados + fala Web Speech API).
-- Oponente IA (Modo Single-Player com inteligência de jogo média).
+- Oponente IA com 3 níveis de dificuldade (Fácil, Médio, Impossível).
+- Atalho de troca de dificuldade (`D`).
 - Anúncio de status da casa, turno, vitória, derrota e empate.
 - Suporte a suporte nativo ARIA Live.
 - Atalho de reinício da partida (`R` ou `Enter`).
 
 ### 6.2 Out of Scope for MVP
-- Seleção manual de nível de dificuldade da IA (Fácil/Impossível) `[Diferido para v2]`.
 - Modo 2 Jogadores no mesmo computador `[Diferido para v2]`.
 - Personalização de vozes ou temas de som `[Diferido para v2]`.
 

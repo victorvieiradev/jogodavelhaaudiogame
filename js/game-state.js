@@ -18,6 +18,7 @@ class GameState {
         this.status = STATE_PLAYING;
         this.turn = CELL_X; // Jogador X começa
         this.winner = null; // null | CELL_X | CELL_O | 'DRAW'
+        this.difficulty = 'MEDIUM'; // 'EASY' | 'MEDIUM' | 'HARD'
         
         // Combinações de vitória no tabuleiro 3x3 (Linhas, Colunas, Diagonais)
         this.winCombinations = [
@@ -25,6 +26,38 @@ class GameState {
             [0, 3, 6], [1, 4, 7], [2, 5, 8], // Colunas
             [0, 4, 8], [2, 4, 6]             // Diagonais
         ];
+    }
+
+    /**
+     * Define o nível de dificuldade
+     * @param {string} level 'EASY' | 'MEDIUM' | 'HARD'
+     */
+    setDifficulty(level) {
+        if (['EASY', 'MEDIUM', 'HARD'].includes(level)) {
+            this.difficulty = level;
+        }
+    }
+
+    /**
+     * Alterna ciclicamente entre EASY, MEDIUM e HARD
+     */
+    cycleDifficulty() {
+        if (this.difficulty === 'EASY') this.difficulty = 'MEDIUM';
+        else if (this.difficulty === 'MEDIUM') this.difficulty = 'HARD';
+        else this.difficulty = 'EASY';
+        return this.difficulty;
+    }
+
+    /**
+     * Retorna a descrição legível da dificuldade atual
+     */
+    getDifficultyText() {
+        switch (this.difficulty) {
+            case 'EASY': return 'Fácil';
+            case 'HARD': return 'Impossível';
+            case 'MEDIUM':
+            default: return 'Médio';
+        }
     }
 
     /**

@@ -12,7 +12,7 @@ class InputHandler {
     initListeners() {
         document.addEventListener('keydown', (e) => {
             // Evita a ação padrão das setas/espaço para não rolar a tela
-            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' ', 'Enter', 'r', 'R', 's', 'S'].includes(e.key)) {
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' ', 'Enter', 'r', 'R', 's', 'S', 'd', 'D'].includes(e.key)) {
                 if (e.key === ' ' || e.key.startsWith('Arrow')) {
                     e.preventDefault();
                 }
@@ -44,6 +44,10 @@ class InputHandler {
                 case 's':
                 case 'S':
                     this.gameController.announceBoardSummary();
+                    break;
+                case 'd':
+                case 'D':
+                    this.gameController.cycleDifficulty();
                     break;
             }
         });

@@ -17,6 +17,7 @@ O **Jogo da Velha Acessível por Áudio** é um jogo web inclusivo que substitui
 | --- | --- |
 | **`↑` `↓` `←` `→`** | Navegar pelas 9 casas do tabuleiro 3x3 (navegação circular). |
 | **`Espaço` / `Enter`** | Marcar a jogada (`X`) na casa focada. |
+| **`D`** | Alternar nível de dificuldade da IA (Fácil, Médio, Impossível). |
 | **`R`** | Reiniciar a partida a qualquer momento. |
 | **`S`** | Ouvir o resumo do tabuleiro completo por voz. |
 
@@ -33,11 +34,14 @@ O **Jogo da Velha Acessível por Áudio** é um jogo web inclusivo que substitui
 
 ---
 
-## 🤖 Oponente de IA
+## 🤖 Oponente de IA (3 Níveis de Dificuldade)
 
 - **Modo Single-Player:** Jogador joga como `X` e o Computador joga como `O`.
-- **Estratégia Minimax:** Dificuldade média que bloqueia jogadas do usuário e fecha trincas.
-- **Delay Humano:** Atraso natural (800ms) para simular o tempo de raciocínio da IA sem sobrepor os áudios.
+- **Níveis Selecionáveis (Tecla `D` ou Botão):**
+  - 🟢 **Fácil:** Jogadas com 70% de aleatoriedade para iniciantes.
+  - 🟡 **Médio:** Estratégia heurística (bloqueia vitórias e fecha linhas).
+  - 🔴 **Impossível:** Algoritmo **Minimax** impecável (imbatível).
+- **Delay Humano:** Atraso natural (850ms) para simular o tempo de raciocínio da IA sem sobrepor os áudios.
 
 ---
 

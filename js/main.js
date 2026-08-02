@@ -45,15 +45,59 @@ class GameController {
             });
         }
 
+        // Botão de dificuldade
+        const btnDifficulty = document.getElementById('btn-difficulty');
+        if (btnDifficulty) {
+            btnDifficulty.addEventListener('click', () => this.cycleDifficulty());
+        }
+
+        // Sincroniza a dificuldade inicial da IA com o estado
+        this.ai.setDifficulty(this.state.difficulty);
+        this.updateDifficultyDOM();
+
         // Inicializa o foco visual na primeira célula
         this.updateFocusDOM();
         
         // Boas-vindas iniciais
         setTimeout(() => {
-            const welcomeText = "Bem-vindo ao Jogo da Velha Acessível. Use as setas para navegar e Espaço para marcar. Posição inicial: Linha 1, Coluna 1, Vazio.";
+            const welcomeText = "Bem-vindo ao Jogo da Velha Acessível. Use as setas para navegar e Espaço para marcar. Tecla D altera a dificuldade. Posição inicial: Linha 1, Coluna 1, Vazio.";
             this.updateStatusText(welcomeText);
             this.audio.speak(welcomeText);
         }, 500);
+    }
+
+    /**
+     * Alterna o nível de dificuldade da IA
+     */
+    cycleDifficulty() {
+        const newLevel = this.state.cycleDifficulty();
+        this.ai.setDifficulty(newLevel);
+        
+        const difficultyText = this.state.getDifficultyText();
+        this.audio.playDifficultyChangeSound(newLevel);
+        
+        const difficultyMsg = `Dificuldade alterada para: ${difficultyText}.`;
+        this.updateStatusText(difficultyMsg);
+        this.audio.speak(difficultyMsg);
+
+        this.updateDifficultyDOM();
+    }
+
+    /**
+     * Atualiza o rótulo visual e atributos ARIA do botão de dificuldade
+     */
+    updateDifficultyDOM() {
+        const btnDifficulty = document.getElementById('btn-difficulty');
+        const difficultyLabel = document.getElementById('difficulty-label');
+        const diffText = this.state.getDifficultyText();
+
+        if (difficultyLabel) {
+            difficultyLabel.textContent = diffText;
+        }
+
+        if (btnDifficulty) {
+            btnDifficulty.setAttribute('aria-label', `Nível de Dificuldade da IA: ${diffText}. Pressione D ou clique para alterar.`);
+        }
     }
 
     /**
